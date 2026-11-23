@@ -24,4 +24,4 @@ function render(){const id=route(),current=NAV.find(n=>n.id===id);document.query
 let toastTimer;function toast(message){const el=document.querySelector('#toast');clearTimeout(toastTimer);el.textContent=message;el.hidden=false;toastTimer=setTimeout(()=>el.hidden=true,3200);}
 window.addEventListener('hashchange',()=>{render();window.scrollTo({top:0,behavior:'instant'});});
 window.addEventListener('storage',event=>{if(event.key===KEY&&event.newValue){try{const next=JSON.parse(event.newValue);if(next.version===1&&next.ui&&typeof next.ui.search==='string'){persistedRaw=event.newValue;storageReadable=true;state={...state,...next};render();}}catch{}}});
-Inventory.init();Commerce.init();Reports.init();Settings.init();save();render();window.addEventListener('load',refreshIcons);
+Inventory.init();Commerce.init();Reports.init();Settings.init();state=GroceryCatalog.upgrade(state);save();render();window.addEventListener('load',refreshIcons);
