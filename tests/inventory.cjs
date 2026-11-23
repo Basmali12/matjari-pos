@@ -16,3 +16,10 @@ assert.equal(r.stock(0),'empty');assert.equal(r.stock(1),'low');assert.equal(r.s
 assert.equal(r.filter([p],'قهوة','all').length,1);assert.equal(r.filter([p],'123','drinks').length,1);assert.equal(r.filter([p],'123','uncategorized').length,0);assert.equal(r.filter([{...p,categoryId:''}],'','uncategorized').length,1);
 console.log('PASS: inventory validation, profit/value, barcode uniqueness, filters and stock boundaries');
 
+const image='data:image/jpeg;base64,/9j/2Q==';
+assert.equal(r.product({...valid,imageData:image},[],categories).imageData,image);
+assert.equal(r.product(valid,[],categories).imageData,'');
+assert.throws(()=>r.product({...valid,imageData:'https://example.com/image.png'},[],categories));
+assert.throws(()=>r.image('data:image/svg+xml;base64,PHN2Zz4='));
+assert.throws(()=>r.image('data:image/jpeg;base64,'+'A'.repeat(170001)));
+console.log('PASS: product image persistence and unsafe/oversized image rejection');

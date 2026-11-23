@@ -10,3 +10,5 @@ const demo=B.seed({...structuredClone(base),products:[],customers:[],cart:[]});a
 const csv=R.csv([{name:'=HYPERLINK("x")',categoryName:'فئة',cost:3,price:5,sold:2,stock:0,revenue:1000,totalCost:600,profit:-100}],'$');assert.ok(csv.startsWith('\uFEFF'));assert.ok(csv.includes("'=HYPERLINK"));assert.ok(csv.includes('"-1"'));
 console.log('PASS: Baghdad dates, inclusive custom ranges, historical prices, debt cutoff, cancellations/refund credit, deleted items, backup validation/roundtrip, protected demo reset and safe Excel CSV');
 
+
+const photoBackup=structuredClone(base);photoBackup.products[0].imageData='data:image/jpeg;base64,/9j/2Q==';assert.equal(B.validate(JSON.parse(JSON.stringify(photoBackup))).products[0].imageData,photoBackup.products[0].imageData);console.log('PASS: image survives JSON backup and restore');
