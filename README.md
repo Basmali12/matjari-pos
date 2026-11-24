@@ -32,3 +32,5 @@ GitHub Pages ينشر فرع `main` من جذر المستودع. الخط Cairo
 تفاصيل الصور: [IMAGE_SOURCES.md](IMAGE_SOURCES.md).
 
 `node tests/grocery-catalog.cjs`
+
+Partial returns preserve the original invoice and append a `sale_return` audit entry with original unit prices/costs and line indices. The return restores selected stock only; customer balances and net receipts include returns. Previously paid credit may become a customer credit balance. Cancellation restores only the remaining invoice quantities. Reports recognize sales on the sale date and deduct returns/cancellations on their own event dates (Baghdad timezone); older invoice cancellation entries remain supported. Run `node tests/partial-returns.cjs` for returns and reconciliation checks.
